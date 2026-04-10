@@ -19,7 +19,9 @@ jobs:
         
     - name: Download Portable SumatraPDF
       run: |
-        Invoke-WebRequest -Uri 'https://github.com/sumatrapdfreader/sumatrapdf/releases/download/prerelease/SumatraPDF-prerelease-64.exe' -OutFile 'SumatraPDF.exe'
+        Invoke-WebRequest -Uri 'https://www.sumatrapdfreader.org/dl/rel/3.6.1/SumatraPDF-3.6.1-64.zip' -OutFile 'SumatraPDF.zip'
+        Expand-Archive -Path 'SumatraPDF.zip' -DestinationPath '.'
+        Get-ChildItem -Filter "*SumatraPDF*.exe" | Rename-Item -NewName "SumatraPDF.exe"
         
     - name: Install Dependencies
       run: |
