@@ -1,6 +1,13 @@
 import sys
 import os
 import time
+
+# PREVENT PYINSTALLER BACKGROUND CRASH
+if getattr(sys, 'stdout', None) is None:
+    sys.stdout = open(os.devnull, "w")
+if getattr(sys, 'stderr', None) is None:
+    sys.stderr = open(os.devnull, "w")
+
 from PyQt6.QtWidgets import (QApplication, QMainWindow, QWidget, QVBoxLayout, 
                              QHBoxLayout, QLabel, QComboBox, QListWidget, 
                              QPushButton, QAbstractItemView, QListWidgetItem,
