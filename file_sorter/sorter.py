@@ -269,6 +269,7 @@ def main():
     p.add_argument("--host", default="http://localhost:11434", help="Ollama server address")
     p.add_argument("--recursive", action="store_true", help="also sort files in subfolders")
     p.add_argument("--apply", action="store_true", help="actually move files (default is preview only)")
+    p.add_argument("--ask", action="store_true", help="show the preview, then ask before moving")
     p.add_argument("--undo", metavar="LOG", help="undo a previous run using its sort_log_*.json")
     args = p.parse_args()
 
@@ -299,6 +300,8 @@ def main():
         print(f"  {cat:<22} {n}")
     print(f"\nFull plan saved to {plan_path}")
 
+    if args.ask and not args.apply:
+        args.apply = input("\nMove the files as shown above? (y/n): ").strip().lower() == "y"
     if not args.apply:
         print("\nPREVIEW ONLY - nothing was moved. Re-run with --apply to move the files.")
         return
